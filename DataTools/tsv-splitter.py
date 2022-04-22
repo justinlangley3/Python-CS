@@ -1,6 +1,26 @@
 import argparse, glob, os, logging
 from sys import stdout
 
+# Disclaimer: This script was made to be used in a Linux terminal
+# 
+# Purpose: TSV files are annoying, and so are suitably large ones
+#          I wrote this script to automate splitting them into smaller file sizes
+#
+# Usage:
+#
+#   The script makes a backup of the .tsv file you give it,
+#   It creates a folder with the same name as the file name
+#   It generates smaller TSV files and puts them in the new folder
+#
+# - Download or copy raw and paste into a .py file
+#
+# - The script can be called with: python file.py [tsv_file] [prefix] [line-count]
+#
+#   + [tsv_file]   :	the file you wish to break into smaller files
+#   + [prefix]	   :	the name prefix to give the new, smaller files
+#   + [line-count] :	the maximum number of lines you want in the new, smaller files
+#
+
 def make_backup(working, parent, file):
 
 	# create a backup directory
