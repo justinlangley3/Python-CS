@@ -26,7 +26,7 @@ from sys import stdout
 # - The script can be called with: python file.py [directory]
 #
 #   + [directiory]	: optional,
-#					  if you want to specify a directory other than the current one
+#			  if you want to specify a directory other than the current one
 #
 #
 
