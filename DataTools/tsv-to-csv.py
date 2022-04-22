@@ -35,7 +35,7 @@ def to_digital(interval):
 	'''Convert a time elapsed in seconds to a digital clock'''
 	minutes, seconds = divmod(interval, 60)
 	hours, minutes = divmod(minutes, 60)
-	digital = hours + ':' + minutes + ':' + seconds
+	digital = str(hours) + ':' + str(minutes) + ':' + str(seconds)
 
 	return digital
 
