@@ -1,7 +1,7 @@
 import argparse, glob, os, logging
 from sys import stdout
 
-# Disclaimer: This script was made to be used in a Linux terminal
+# Disclaimer: This script was made to be used in a Linux environment (terminal)
 # 
 # Purpose: TSV files are annoying, and so are suitably large ones
 #          I wrote this script to automate splitting them into smaller file sizes
