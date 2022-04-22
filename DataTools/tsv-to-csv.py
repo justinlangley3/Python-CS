@@ -103,12 +103,12 @@ file_count = str(len(files))
 # 5) remove tsv files after they're processed
 #
 logger.info('Converting: ' + file_count + ', files from tsv to csv ...')
-start = time.clock()
+start = time.perf_counter()
 with click.progressbar(files) as bar:
 	for file in bar:
 		make_csv(file)
 		os.system('rm ' + file)
-end = time.clock
+end = time.perf_counter()
 
 
 # compute time elapsed
