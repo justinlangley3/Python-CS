@@ -44,7 +44,7 @@ def make_csv(tsv):
 	'''Convert a tsv file to csv using pandas'''
 	
 	def handle_backup_on_error(file):
-		error_dir = os.path.dirname(file) + 'errors/'
+		error_dir = os.path.dirname(file) + '/errors/'
 		os.mkdir(error_dir)
 		os.system('cp ' + error_dir + os.path.basename(file))
 
