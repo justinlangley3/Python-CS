@@ -41,12 +41,13 @@ def to_digital(interval):
 
 
 def make_csv(tsv):
+	'''Convert a tsv file to csv using pandas'''
+	
 	def handle_backup_on_error(file):
 		error_dir = os.path.dirname(file) + 'errors/'
 		os.mkdir(error_dir)
 		os.system('cp ' + error_dir + os.path.basename(file))
 
-	'''Convert a tsv file to csv using pandas'''
 	ext = 'csv'
 	csv_name = tsv[:-3] + ext
 
@@ -131,3 +132,4 @@ elapsed = to_digital(interval)
 stats = 'Processed: ' + file_count + ', in: ' + elapsed
 logger.info(stats)
 logger.info('Done.')
+
