@@ -26,7 +26,7 @@ from sys import stdout
 # - The script can be called with: python file.py [directory]
 #
 #   + [directiory]	: optional,
-#			  if you want to specify a directory other than the current one
+#					  if you want to specify a directory other than the current one
 #
 #
 
@@ -41,6 +41,11 @@ def to_digital(interval):
 
 
 def make_csv(tsv):
+	def handle_backup_on_error(file):
+		error_dir = os.path.dirname(file) + 'errors/'
+		os.mkdir(error_dir)
+		os.system('cp ' + error_dir + os.path.basename(file))
+
 	'''Convert a tsv file to csv using pandas'''
 	ext = 'csv'
 	csv_name = tsv[:-3] + ext
@@ -49,10 +54,17 @@ def make_csv(tsv):
 	with open(csv_name, 'w'):
 		pass
 
-
 	# chunksize can be increased if the lines in your TSV aren't huge
-	for chunk in pd.read_table(tsv, sep='\t', chunksize=1):
-		chunk.to_csv(csv_name, mode='a', index=False, header=False)
+	try:
+		with pd.read_table(tsv, sep='\t', chunksize=1) as reader:
+			for chunk in reader:
+				chunk.to_csv(csv_name, mode='a', index=False, header=False)
+	except pd.errors.ParserError as e:
+		logger.info(e)
+		logger.error('\n- \"' + tsv + '\"\n, The file could not parse fully (probably a loose \"). Remaining lines were skipped.')
+		handle_backup_on_error(tsv)
+	finally:
+		os.system('rm ' + tsv)
 
 	return csv_name
 
@@ -107,7 +119,6 @@ start = time.perf_counter()
 with click.progressbar(files) as bar:
 	for file in bar:
 		make_csv(file)
-		os.system('rm ' + file)
 end = time.perf_counter()
 
 
@@ -120,4 +131,3 @@ elapsed = to_digital(interval)
 stats = 'Processed: ' + file_count + ', in: ' + elapsed
 logger.info(stats)
 logger.info('Done.')
-
